@@ -1,0 +1,23 @@
+{
+  "name": "@antonytm/mcp-all",
+  "version": "0.1.0",
+  "description": "Advanced MCP proxy server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-search-index": "tsc && node dist/build-search-index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "flexsearch": "^0.7.43",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/flexsearch": "^0.7.42",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.2"
+  }
+}
