@@ -15,7 +15,7 @@ export async function getServer(config: Config): Promise<McpServer> {
     const server = new McpServer({
         name: `Universal MCP Server`,
         description: "Model Context Protocol Server for using all MCP servers",
-        version: "0.1.1",
+        version: "0.1.2",
     });
 
     // Initialize search index
