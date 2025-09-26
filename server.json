@@ -4,38 +4,38 @@
     "description": "A Model Context Protocol server to run other MCP servers",
     "status": "active",
     "repository": {
-      "url": "https://github.com/Antonytm/mcp-all",
-      "source": "github"
+        "url": "https://github.com/Antonytm/mcp-all",
+        "source": "github"
     },
-    "version": "0.1.3",
+    "version": "0.1.4",
     "packages": [
-      {
-        "registry_type": "npm",
-        "registry_base_url": "https://registry.npmjs.org",
-        "identifier": "@antonytm/mcp-all",
-        "version": "0.1.3",
-        "transport": {
-          "type": "stdio"
+        {
+            "registryType": "npm",
+            "registryBaseUrl": "https://registry.npmjs.org",
+            "identifier": "@antonytm/mcp-all",
+            "version": "0.1.4",
+            "transport": {
+                "type": "stdio"
+            },
+            "environmentVariables": [
+                {
+                    "TRANSPORT": "stdio"
+                }
+            ]
         },
-        "environment_variables": [
-          {
-            "TRANSPORT": "stdio"
-          }
-        ]
-      },
-      {
-        "registry_type": "npm",
-        "registry_base_url": "https://registry.npmjs.org",
-        "identifier": "@antonytm/mcp-all",
-        "version": "0.1.3",
-        "transport": {
-          "type": "streamable-http"
-        },
-        "environment_variables": [
-          {
-            "TRANSPORT": "streamable-http"
-          }
-        ]
-      }
+        {
+            "registryType": "npm",
+            "registryBaseUrl": "https://registry.npmjs.org",
+            "identifier": "@antonytm/mcp-all",
+            "version": "0.1.4",
+            "transport": {
+                "type": "streamable-http"
+            },
+            "environmentVariables": [
+                {
+                    "TRANSPORT": "streamable-http"
+                }
+            ]
+        }
     ]
-  }
+}
