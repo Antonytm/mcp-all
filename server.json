@@ -7,7 +7,7 @@
         "url": "https://github.com/Antonytm/mcp-all",
         "source": "github"
     },
-    "version": "0.1.7",
+    "version": "0.1.8",
     "packages": [
         {
             "registry_type": "npm",
@@ -15,7 +15,7 @@
             "registryType": "npm",
             "registryBaseUrl": "https://registry.npmjs.org",
             "identifier": "@antonytm/mcp-all",
-            "version": "0.1.7",
+            "version": "0.1.8",
             "transport": {
                 "type": "stdio"
             },
@@ -36,7 +36,7 @@
             "registryType": "npm",
             "registryBaseUrl": "https://registry.npmjs.org",
             "identifier": "@antonytm/mcp-all",
-            "version": "0.1.7",
+            "version": "0.1.8",
             "transport": {
                 "type": "streamable-http"
             },
