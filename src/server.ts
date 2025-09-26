@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { config } from "node:process";
 import z from "zod";
 import type { Config } from "./config.js";
-import { MCPSearchIndex, buildSearchIndex } from "./build-search-index.js";
+import { MCPSearchIndex, buildSearchIndex } from "./search-index.js";
 import * as fs from "fs";
 import * as path from "path";
 import { registeryDynamicTools } from "./tools/dynamic-tools.js";

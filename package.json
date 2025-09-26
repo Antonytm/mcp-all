@@ -2,22 +2,45 @@
   "name": "@antonytm/mcp-all",
   "version": "0.1.0",
   "description": "Advanced MCP proxy server",
-  "main": "index.js",
+  "main": "./dist/bundle.js",
+  "bin": {
+    "@antonytm/mcp-all": "./dist/bundle.js"
+  },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-search-index": "tsc && node dist/build-search-index.js"
+    "build-search-index": "node dist/build-search-index.js",
+    "build": "tsc && npm run build-search-index",
+    "bundle": "rollup -c",
+    "start": "tsc && node dist/index.js",
+    "indpector": "npx @modelcontextprotocol/inspector@latest"
   },
   "author": "",
   "license": "ISC",
+  
   "dependencies": {
+    "@langchain/mcp-adapters": "^0.6.0",
+    "@modelcontextprotocol/sdk": "^1.18.1",
+    "dotenv": "^17.2.2",
     "esm": "^3.2.25",
+    "express": "^5.1.0",
     "flexsearch": "^0.7.43",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@types/express": "^5.0.3",
     "@types/flexsearch": "^0.7.42",
     "@types/node": "^20.0.0",
+    "rollup": "^4.52.2",
+    "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.9.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

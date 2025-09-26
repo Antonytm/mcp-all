@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import type { Config } from "../config.js";
-import { buildSearchIndex } from "../build-search-index.js";
+import { buildSearchIndex } from "../search-index.js";
 
 export async function refreshMcpIndex(server: McpServer, config: Config): Promise<void> {
     server.tool(
