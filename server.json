@@ -10,32 +10,30 @@
     "version": "0.1.2",
     "packages": [
       {
-        "registryType": "npm",
-        "registryBaseUrl": "https://registry.npmjs.org",
+        "registry_type": "npm",
+        "registry_base_url": "https://registry.npmjs.org",
         "identifier": "@antonytm/mcp-all",
         "version": "0.1.2",
         "transport": {
           "type": "stdio"
         },
-        "environmentVariables": [
+        "environment_variables": [
           {
-            "name": "TRANSPORT",
-            "value": "stdio"
+            "TRANSPORT": "stdio"
           }
         ]
       },
       {
-        "registryType": "npm",
-        "registryBaseUrl": "https://registry.npmjs.org",
+        "registry_type": "npm",
+        "registry_base_url": "https://registry.npmjs.org",
         "identifier": "@antonytm/mcp-all",
         "version": "0.1.2",
         "transport": {
           "type": "streamable-http"
         },
-        "environmentVariables": [
+        "environment_variables": [
           {
-            "name": "TRANSPORT",
-            "value": "streamable-http"
+            "TRANSPORT": "streamable-http"
           }
         ]
       }
