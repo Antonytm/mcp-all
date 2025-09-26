@@ -7,11 +7,9 @@ const { Index } = flexsearch;
 import fetch from 'node-fetch';
 import * as fs from 'fs';
 import * as path from 'path';
-import type { Server } from './schema/server';
-import type { Metadata } from './schema/metadata';
-
-
-
+import type { Server } from './schema/server.js';
+import type { Metadata } from './schema/metadata.js';
+import { config } from './config.js';
 
 class MCPRegistryClient {
     baseUrl = 'https://registry.modelcontextprotocol.io';
@@ -128,6 +126,72 @@ class MCPSearchIndex {
             });
         });
     }
+
+    async importFromJSON(jsonData: any) {
+        try {
+            // Validate the JSON structure
+            if (!jsonData || typeof jsonData !== 'object') {
+                throw new Error('Invalid JSON data: must be an object');
+            }
+
+            if (!jsonData.indexData || !jsonData.servers) {
+                throw new Error('Invalid JSON structure: missing indexData or servers');
+            }
+
+            // Clear existing data
+            this.servers.clear();
+            this.index = new Index({
+                preset: 'match',
+                tokenize: 'forward',
+                resolution: 9,
+                optimize: true,
+                cache: true
+            });
+
+            // Import servers data
+            const servers = jsonData.servers;
+            for (const [serverId, serverData] of Object.entries(servers)) {
+                if (serverData && typeof serverData === 'object') {
+                    this.servers.set(serverId, serverData);
+                }
+            }
+
+            // Rebuild the search index from the imported server data
+            // This is more reliable than trying to import the FlexSearch index directly
+            console.log('🔄 Rebuilding search index from imported data...');
+            for (const [serverId, serverData] of this.servers.entries()) {
+                // Create searchable content combining all relevant fields
+                const searchContent = [
+                    serverData.name,
+                    serverData.description,
+                ].filter(Boolean).join(' ');
+
+                // Add to FlexSearch index
+                this.index.add(serverId, searchContent);
+            }
+
+            console.log(`✅ Successfully imported ${this.servers.size} servers from JSON`);
+            return {
+                success: true,
+                serverCount: this.servers.size,
+                metadata: jsonData.metadata || {}
+            };
+        } catch (error) {
+            console.error('❌ Error importing from JSON:', error);
+            throw error;
+        }
+    }
+
+    async importFromFile(filePath: string) {
+        try {
+            const jsonContent = fs.readFileSync(filePath, 'utf8');
+            const jsonData = JSON.parse(jsonContent);
+            return await this.importFromJSON(jsonData);
+        } catch (error) {
+            console.error(`❌ Error importing from file ${filePath}:`, error);
+            throw error;
+        }
+    }
 }
 
 async function buildSearchIndex() {
@@ -160,14 +224,13 @@ async function buildSearchIndex() {
         const exportData = await searchIndex.exportIndex();
 
         // Ensure output directory exists
-        const outputDir = path.join(process.cwd(), 'dist');
+        const outputDir = path.dirname(config.indexPath);
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });
         }
 
-        // Write the index to file
-        const outputPath = path.join(outputDir, 'mcp-search-index.json');
-        fs.writeFileSync(outputPath, JSON.stringify(exportData, null, 2));
+        // Write the index to file using config path
+        fs.writeFileSync(config.indexPath, JSON.stringify(exportData, null, 2));
 
         // Write a summary file
         const summaryPath = path.join(outputDir, 'index-summary.json');
@@ -190,12 +253,11 @@ async function buildSearchIndex() {
         testQueries.forEach(query => {
             const results = searchIndex.search(query, 3);
             console.log(`   "${query}" -> ${results.length} results`);
-            console.log(results);
         });
 
         console.log('\n' + '='.repeat(50));
         console.log('✅ Search index build completed successfully!');
-        console.log(`📁 Index saved to: ${outputPath}`);
+        console.log(`📁 Index saved to: ${config.indexPath}`);
         console.log(`📊 Summary saved to: ${summaryPath}`);
         console.log(`🎯 Total servers indexed: ${searchIndex.getServerCount()}`);
         console.log('='.repeat(50));
@@ -205,8 +267,5 @@ async function buildSearchIndex() {
     }
 }
 
-// Run the build process automatically
-buildSearchIndex();
-
-export { MCPRegistryClient, MCPSearchIndex, buildSearchIndex };
+export { MCPRegistryClient, MCPSearchIndex, buildSearchIndex};
 

@@ -1,12 +1,14 @@
 #!/usr/bin/env node
+import { envStartSchema, type EnvStartConfig } from './config.js';
+import { startSTDIO } from './stdio.js';
+import { startStreamableHTTP } from './streamable-http.js';
+import 'dotenv/config.js';
 
-import { MCPRegistryClient, MCPSearchIndex, buildSearchIndex } from './build-search-index.js';
+const ENV: EnvStartConfig = envStartSchema.parse(process.env);
 
-// Export the MCP registry client and search functionality
-export { MCPRegistryClient, MCPSearchIndex, buildSearchIndex };
-
-// Simple function to get list of MCP servers
-export async function getMCPServers(): Promise<{servers: any[]}> {
-    const client = new MCPRegistryClient();
-    return await client.fetchAllServers();
+if(ENV.TRANSPORT === "streamable-http") {
+    startStreamableHTTP();
+}
+else {
+    startSTDIO();
 }
