@@ -10,15 +10,22 @@ import { addMcpServer } from "./tools/add-mcp-server.js";
 import { removeMcpServer } from "./tools/remove-mcp-server.js";
 import { addMcpConfigurationTool } from "./tools/mcp-configuration.js";
 import { refreshMcpIndex } from "./tools/refresh-mcp-index.js";
+import { addSearchMcpTool } from "./tools/search-mcp.js";
 
 export async function getServer(config: Config): Promise<McpServer> {
     const server = new McpServer({
         name: `Universal MCP Server`,
         description: "Model Context Protocol Server for using all MCP servers",
-        version: "0.1.17",
+        version: "0.1.18",
     });
 
-    await addMcpConfigurationTool(server, config);
+    if (!fs.existsSync(config.mcpConfigPath)) {
+        {
+            await fs.promises.writeFile(config.mcpConfigPath, JSON.stringify({
+                mcpServers: {}
+            }, null, 2));
+        }
+    }
 
     // Initialize search index
     const searchIndex = new MCPSearchIndex();
@@ -39,26 +46,9 @@ export async function getServer(config: Config): Promise<McpServer> {
         await searchIndex.importFromFile(config.indexPath);
     }
 
-    server.tool(
-        "search",   
-        "Search for MCP servers",
-        {
-            query: z.string(),
-            limit: z.number().optional().default(5),
-        },
-        async (params) => {
-            const results = await searchIndex.search(params.query, params.limit);
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: JSON.stringify(results, null, 2)
-                    }
-                ]
-            };
-        }
-    );
+    await addSearchMcpTool(server, config, searchIndex);
 
+    await addMcpConfigurationTool(server, config);
     await addMcpServer(server, config);
     await removeMcpServer(server, config);
     await refreshMcpIndex(server, config);

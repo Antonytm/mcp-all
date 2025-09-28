@@ -3,13 +3,6 @@ import * as fs from "fs";
 import type { Config } from "../config.js";
 
 export async function addMcpConfigurationTool(server: McpServer, config: Config): Promise<void> {
-    if (!fs.existsSync(config.mcpConfigPath)) {
-        {
-            await fs.promises.writeFile(config.mcpConfigPath, JSON.stringify({
-                mcpServers: {}
-            }, null, 2));
-        }
-    }
     server.tool(
         "mcp configuration",
         "Get the MCP configuration",

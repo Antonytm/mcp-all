@@ -5,7 +5,7 @@ import type { Config } from "../config";
 import { promises as fs } from "fs";
 
 export async function registeryDynamicTools(server: McpServer, config: Config) {
-    
+
     try {
         const configJson = await fs.readFile(config.mcpConfigPath, 'utf8');
         const configJsonObject = JSON.parse(configJson);

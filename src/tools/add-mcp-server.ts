@@ -5,9 +5,6 @@ import * as fs from "node:fs";
 import { MultiServerMCPClient } from "@langchain/mcp-adapters";
 
 export async function addMcpServer(server: McpServer, config: Config) {
-
-    
-
     server.tool(
         "add_mcp_server",
         "Add a new MCP server to the configuration",
@@ -27,7 +24,6 @@ export async function addMcpServer(server: McpServer, config: Config) {
             }),
         },
         async (params) => {
-            const configJson = await fs.promises.readFile(config.mcpConfigPath, 'utf8');
             try {
                 const configJson = await fs.promises.readFile(config.mcpConfigPath, 'utf8');
                 const configJsonObject = JSON.parse(configJson);
