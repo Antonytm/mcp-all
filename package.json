@@ -1,7 +1,7 @@
 {
   "name": "@antonytm/mcp-all",
   "mcpName": "io.github.Antonytm/mcp-all",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Advanced MCP proxy server",
   "main": "./dist/bundle.js",
   "bin": {

@@ -13,8 +13,8 @@ export const envStartSchema = z.object({
 });
 
 export const filePaths = {
-    indexPath: path.join(process.cwd(), 'dist', 'mcp-search-index.json'),
-    mcpConfigPath: path.join(process.cwd(), 'dist', 'mcp-config.json'),
+    indexPath: path.join(process.cwd(), 'mcp-all', 'mcp-search-index.json'),
+    mcpConfigPath: path.join(process.cwd(), 'mcp-all', 'mcp-config.json'),
 }
 
 export type EnvStartConfig = z.infer<typeof envStartSchema>;

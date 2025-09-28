@@ -15,8 +15,10 @@ export async function getServer(config: Config): Promise<McpServer> {
     const server = new McpServer({
         name: `Universal MCP Server`,
         description: "Model Context Protocol Server for using all MCP servers",
-        version: "0.1.14",
+        version: "0.1.15",
     });
+
+    await addMcpConfigurationTool(server, config);
 
     // Initialize search index
     const searchIndex = new MCPSearchIndex();
@@ -57,7 +59,7 @@ export async function getServer(config: Config): Promise<McpServer> {
         }
     );
 
-    await addMcpConfigurationTool(server, config);
+    
 
     await addMcpServer(server, config);
     await removeMcpServer(server, config);

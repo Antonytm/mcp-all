@@ -8,6 +8,13 @@ export async function addMcpConfigurationTool(server: McpServer, config: Config)
         "Get the MCP configuration",
         {},
         async () => {
+            if (!fs.existsSync(config.mcpConfigPath)) {
+                {
+                    await fs.promises.writeFile(config.mcpConfigPath, JSON.stringify({
+                        mcpServers: {}
+                    }, null, 2));
+                }
+            }
             const configJson = await fs.promises.readFile(config.mcpConfigPath, 'utf8');
             return {
                 content: [
