@@ -1,7 +1,7 @@
 {
   "name": "@antonytm/mcp-all",
   "mcpName": "io.github.Antonytm/mcp-all",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Advanced MCP proxy server",
   "main": "./dist/bundle.js",
   "bin": {
@@ -14,7 +14,7 @@
     "build": "tsc && npm run build-search-index",
     "bundle": "rollup -c",
     "start": "tsc && node dist/index.js",
-    "indpector": "npx @modelcontextprotocol/inspector@latest"
+    "inspector": "npx @modelcontextprotocol/inspector@latest"
   },
   "author": "",
   "license": "ISC",

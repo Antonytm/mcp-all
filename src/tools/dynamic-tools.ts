@@ -5,9 +5,10 @@ import type { Config } from "../config";
 import { promises as fs } from "fs";
 
 export async function registeryDynamicTools(server: McpServer, config: Config) {
-    const configJson = await fs.readFile(config.mcpConfigPath, 'utf8');
-    const configJsonObject = JSON.parse(configJson);
+    
     try {
+        const configJson = await fs.readFile(config.mcpConfigPath, 'utf8');
+        const configJsonObject = JSON.parse(configJson);
         const client = new MultiServerMCPClient({
             // Global tool configuration options
             // Whether to throw on errors if a tool fails to load (optional, default: true)

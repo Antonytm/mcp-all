@@ -15,7 +15,7 @@ export async function getServer(config: Config): Promise<McpServer> {
     const server = new McpServer({
         name: `Universal MCP Server`,
         description: "Model Context Protocol Server for using all MCP servers",
-        version: "0.1.15",
+        version: "0.1.16",
     });
 
     await addMcpConfigurationTool(server, config);
@@ -58,8 +58,6 @@ export async function getServer(config: Config): Promise<McpServer> {
             };
         }
     );
-
-    
 
     await addMcpServer(server, config);
     await removeMcpServer(server, config);

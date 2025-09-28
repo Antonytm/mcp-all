@@ -156,9 +156,6 @@ class MCPSearchIndex {
                 }
             }
 
-            // Rebuild the search index from the imported server data
-            // This is more reliable than trying to import the FlexSearch index directly
-            console.log('🔄 Rebuilding search index from imported data...');
             for (const [serverId, serverData] of this.servers.entries()) {
                 // Create searchable content combining all relevant fields
                 const searchContent = [
