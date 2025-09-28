@@ -16,8 +16,20 @@ export async function getServer(config: Config): Promise<McpServer> {
     const server = new McpServer({
         name: `Universal MCP Server`,
         description: "Model Context Protocol Server for using all MCP servers",
-        version: "0.1.19",
+        version: "0.1.20",
     });
+
+    //Create folder if it doesn't exist
+    if (!fs.existsSync(path.dirname(config.mcpConfigPath))) {
+        fs.mkdirSync(path.dirname(config.mcpConfigPath), { recursive: true });
+    }
+
+    //Create file if it doesn't exist
+    if (!fs.existsSync(config.mcpConfigPath)) {
+        fs.writeFileSync(config.mcpConfigPath, JSON.stringify({
+            mcpServers: {}
+        }, null, 2));
+    }
 
     if (!fs.existsSync(config.mcpConfigPath)) {
         {
