@@ -1,6 +1,6 @@
 # Swiss-knife MCP server
 
-It allows searching for the Model Context Protocol servers using MCP [registry](https://github.com/modelcontextprotocol/registry).
+It allows searching(`search` tool) for the Model Context Protocol servers using MCP [registry](https://github.com/modelcontextprotocol/registry). Once your AI agent has found the MCP server that it needs, it can add it to the configuration using `add_mcp_server` tool. You will get new tools after restarting the MCP server.
 
 ## Available tools
 
